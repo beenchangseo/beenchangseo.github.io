@@ -76,6 +76,7 @@ export default function Header() {
                         )} */}
                     </Link>
                     <div className="flex flex-nowrap gap-8 items-center">
+                        {/* Main logo 영역 */}
                         <button type="button" className="m-0 p-0" onClick={handleTheme}>
                             {theme === 'dark' ? (
                                 <Image src="/svg/moon.svg" alt="dark mode" width={30} height={30} />
@@ -83,6 +84,8 @@ export default function Header() {
                                 <Image src="/svg/sun.svg" alt="light mode" width={30} height={30} />
                             )}
                         </button>
+
+                        {/* 토글 영역 */}
                         <button type="button" className="m-0 p-0 sm:hidden" onClick={handleToggle}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -98,6 +101,8 @@ export default function Header() {
                                 />
                             </svg>
                         </button>
+
+                        {/* 메뉴 영역 */}
                         <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex">
                             <Nav type="normal" />
                         </div>
