@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {Inter} from 'next/font/google';
 import './globals.css';
+import Providers from '../components/mode/Provider';
 import Layout from '@/components/Layout';
 
 const inter = Inter({subsets: ['latin']});
@@ -16,9 +17,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className={inter.className}>
-                <Layout>{children}</Layout>
+        <html lang="en" className={`transition duration-300 ${inter.className}`}>
+            <body /* className={inter.className} */>
+                <Providers>
+                    <Layout>{children}</Layout>
+                </Providers>
             </body>
         </html>
     );
