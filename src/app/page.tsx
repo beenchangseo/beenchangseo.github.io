@@ -20,6 +20,8 @@ export default function Home() {
                     width={300}
                     height={300}
                     className="rounded-2xl"
+                    priority={true}
+                    style={{width: 300, height: 300}}
                 />
                 <div className="min-w-[250] max-w-[300px]">
                     <h2 className="font-bold text-xl">꾸준히 즐기는 개발자 서창빈 입니다.</h2>

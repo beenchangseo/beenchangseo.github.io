@@ -1,4 +1,4 @@
-import {Mdx} from '@/components/Mdx';
+import {Mdx} from '../../../../components/Mdx';
 import {allPosts} from 'contentlayer/generated';
 
 export async function generateStaticParams() {
