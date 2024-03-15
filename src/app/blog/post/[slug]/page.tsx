@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import {Mdx} from '../../../../components/Mdx';
 import {allPosts} from 'contentlayer/generated';
 
@@ -13,13 +14,23 @@ const Post = ({params}: {params: {slug: string}}) => {
         return false;
     }
 
+    const description = post.description;
+
     return (
-        <section>
-            <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
-                <h1 className="mb-16 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
-                <Mdx code={post.body.code} />
-            </div>
-        </section>
+        <>
+            <Head>
+                <meta property="og:title" content={post.title} />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content={post.description} />
+                <meta property="og:url" content={'https://beenchangseo.github.io/' + params.slug} />
+            </Head>
+            <section>
+                <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
+                    <h1 className="mb-16 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
+                    <Mdx code={post.body.code} />
+                </div>
+            </section>
+        </>
     );
 };
 export default Post;
