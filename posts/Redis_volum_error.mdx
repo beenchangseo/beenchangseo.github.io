@@ -1,0 +1,47 @@
+---
+title: Redis EXECABORT Transaction discarded because of previous errors 에러
+date: 2024-03-15
+description: EXECABORT Transaction discarded because of previous errors 문제
+category: javascript
+---
+
+## 문제
+
+거래소 마켓 데이터의 처리를 담당하는 모듈에서 장애가 발생하여 서비스 전체 기능이 멈추었다.
+
+해당 모듈은 pod 로그를 보니 아래 에러를 출력하면 재기동을 무한 반복하고 있었다.
+```
+
+Uahandeled promise rejection occured!
+[ErrorReply: EXECABORT Transaction discarded because of previous errors.]
+```
+
+
+## 원인 분석
+예상되는 문제는 2가지 정도
+1. Transaction을 사용하는 redis 명령어에서 잘못된 명령어를 사용 후 exec 했을 경우
+2. 메모리 부족
+
+1차적으로 최근 커밋으로 추가된 redis command가 있는지 체크 -> 없음
+Redis 메모리 조회
+
+```
+redis-cli info | grep memory
+```
+
+조회 해보니 메모리가 모자란 상황이었다.
+최근 메일 서비스를 bull message queue를 사용하여 보내도록 변경하였는데 대용량 벌크 메일을 처리하다가 메모리 부족으로 죽었던 것이었다.
+
+> 밀어넣는 job 개수 > worker 처리 개수
+
+
+## 해결
+처리하지 못한 job들을 따로 추출 후 저장 (미처리 벌크 메일 재전송용)
+
+aws redis 용량 추가 후 나머지 벌크 메일 전송 -> 완료
+
+추출 해놓았던 벌크 메일 job으로 다시 밀어넣기 -> 완료
+
+job이 많이 쌓였을 경우 스케일 아웃 할 수 있도록 수정이 필요해보인다.
+
+이상 주말 출근 이유 일기 끝
