@@ -14,8 +14,13 @@ export const Post = defineDocumentType(() => ({
         title: {type: 'string', required: true},
         date: {type: 'string', required: true},
         description: {type: 'string', required: true},
-        category: {type: 'string', required: false},
+        category: {type: 'list', of: {type: 'string'}, required: true},
+        tags: {type: 'list', of: {type: 'string'}, required: true},
     },
+    // 커스텀 필드 생성
+    // computedFields: {
+    //     url: {type: 'string', resolve: (post) => `/posts/${post._raw.flattenedPath}`},
+    // },
 }));
 
 export default makeSource({

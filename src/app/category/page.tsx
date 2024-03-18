@@ -25,7 +25,8 @@ export default function Blog() {
             {sellect === '' ? (
                 <PostList posts={posts} />
             ) : (
-                <PostList posts={posts.filter((post) => post.category === sellect)} />
+                // <PostList posts={posts.filter((post) => post.category === sellect)} />
+                <PostList posts={posts.filter((post) => post.category.includes(sellect))} />
             )}
         </>
     );

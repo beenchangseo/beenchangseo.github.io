@@ -1,12 +1,27 @@
 import Head from 'next/head';
 import {Mdx} from '../../../../components/Mdx';
 import {allPosts} from 'contentlayer/generated';
+import {Metadata} from 'next';
 
 export async function generateStaticParams() {
     return allPosts.map((post) => ({
         slug: post._raw.flattenedPath,
     }));
 }
+
+export const generateMetadata = async ({params}: {params: {slug: string}}): Promise<Metadata> => {
+    const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+
+    if (!post) {
+        return {};
+    }
+
+    return {
+        title: post.title,
+        description: post.description,
+        keywords: post.tags.join(', '),
+    };
+};
 
 const Post = ({params}: {params: {slug: string}}) => {
     const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
