@@ -17,20 +17,26 @@ tags:
 거래소 마켓 데이터의 처리를 담당하는 모듈에서 장애가 발생하여 서비스 전체 기능이 멈추었다.
 
 해당 모듈은 pod 로그를 보니 아래 에러를 출력하면 재기동을 무한 반복하고 있었다.
-```
 
+```
 Uahandeled promise rejection occured!
 [ErrorReply: EXECABORT Transaction discarded because of previous errors.]
 ```
 
 
 ## 원인 분석
+EXECABORT Transaction discarded because of previous errors
+직역하자면 exec 명령어가 abort 되었고, 그 이유는 이전 오류로 인해 트랜잭션 명령어가 삭제되었다.
+
 예상되는 문제는 2가지 정도
 1. Transaction을 사용하는 redis 명령어에서 잘못된 명령어를 사용 후 exec 했을 경우
-2. 메모리 부족
+2. redis watch 명령어로 lock이 걸린 key를 변경하려고 시도 했는지 체크
+3. 메모리 부족
 
-1차적으로 최근 커밋으로 추가된 redis command가 있는지 체크 -> 없음
-Redis 메모리 조회
+1차적으로 최근 커밋으로 추가된 redis 서비스 로직이 있는지 체크 했다.
+배포된 feature 브랜치들중 redis를 사용하거나 기존 로직을 변경하는 커밋은 없었음.
+
+그럼 redis 메모리일 확률이 높기 때문에 redis 메모리를 조회해봤음.
 
 ```
 redis-cli info | grep memory
@@ -39,15 +45,17 @@ redis-cli info | grep memory
 조회 해보니 메모리가 모자란 상황이었다.
 최근 메일 서비스를 bull message queue를 사용하여 보내도록 변경하였는데 대용량 벌크 메일을 처리하다가 메모리 부족으로 죽었던 것이었다.
 
-> 밀어넣는 job 개수 > worker 처리 개수
+벌크 메일 모듈이 밀어넣는 메일 > 메일 전송 모듈의 전송 처리
 
 
 ## 해결
-처리하지 못한 job들을 따로 추출 후 저장 (미처리 벌크 메일 재전송용)
+처리하지 못한 job들을 따로 추출 후 백업 (전송되지 못한 메일들은 추후 재 전송 하기위함)
 
-aws redis 용량 추가 후 나머지 벌크 메일 전송 -> 완료
+추출한 job과 관련된 redis key 삭제 처리
 
-추출 해놓았던 벌크 메일 job으로 다시 밀어넣기 -> 완료
+aws redis 용량 추가 후 나머지 벌크 메일 전송
+
+추출 해놓았던 벌크 메일 job으로 다시 밀어넣기
 
 job이 많이 쌓였을 경우 스케일 아웃 할 수 있도록 수정이 필요해보인다.
 
