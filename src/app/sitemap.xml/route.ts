@@ -11,7 +11,7 @@ function getSitemap() {
           .map(
               (post) => `
               <url>
-                <loc>${BASE_URL + post._raw.flattenedPath}</loc>
+                <loc>${BASE_URL + 'blog/post/' + post._raw.flattenedPath}</loc>
                 <lastmod>${new Date(post.date).toISOString()}</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>1</priority>
