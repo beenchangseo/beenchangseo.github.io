@@ -4,7 +4,7 @@ import CategoryList from '../../components/CategoryList';
 import PostList from '../../components/PostList';
 import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
-import {ChangeEvent, useState} from 'react';
+import {useState} from 'react';
 
 export default function Blog() {
     const posts = allPosts.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));

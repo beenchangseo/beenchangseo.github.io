@@ -23,6 +23,7 @@ export const generateMetadata = async ({params}: {params: {slug: string}}): Prom
         keywords: post.tags.join(', '),
         openGraph: {
             title: post.title,
+            siteName: 'Beenchangseo Blog',
             description: post.description,
             url: `/${post._raw.flattenedPath}`,
             locale: 'ko_KR',
