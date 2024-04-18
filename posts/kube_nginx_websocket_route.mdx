@@ -16,11 +16,15 @@ tags:
 # 이 포스팅은 아직 작성 중 입니다. (WIP)
 
 ## 쿠버네티스 Pod 외부접속 with nginx, websocket
-clusterIP로 설정한 pod들과 host의 앱 nginx로 통신하기
+로컬 개발 환경을 셋팅하다가, 쿠버네티스에 clusterIP로 설정한 웹 소켓 어플리케이션(pod)들과 host의 express 서버가 서로 통신이 필요한 상황이 왔다.
 
 clusterIP로 설정한 pod는 쿠버네티스의 내부 사설 아이피를 할당 받게된다.
 
 host에서 해당 pod로 접근하려면 NodePort로 변경해야하지만 ClusterIP를 유지하면서 Nginx로 proxy를 해보았다.
+
+그림으로 표현하면 아래와 같다
+
+![kube_nginx_websocket_route1](/images/kube_nginx_websocket_route1.png)
 
 ## Service 생성
 서비스는 2개를 생성한다. (NodePort와 ClusterIP)
@@ -189,7 +193,14 @@ kubectl apply -f nginx_deployment.yaml
 로그가 잘 나오는지도 확인 해보자
 ```bash
 kubectl get po | grep nginx
+NAME                     READY     STATUS    RESTARTS   AGE       IP            NODE
+nginx-3800858182-jr4a2   1/1       Running   0          13s       x.x.x.x
+
+
+
 kubectl logs -f nginx-deployment-xxxxxxxx-xxxxx
+[21/4/2024:02:54:45 +0000] - *.*.*.* | *.*.*.* - "GET / HTTP/1.1" 200 6180 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36"
+
 ```
 
 
@@ -252,6 +263,15 @@ kubectl apply -f my_application_deployment.yaml
 로그가 잘 나오는지도 확인 해보자
 ```bash
 kubectl get po | grep my-application
+NAME                            READY     STATUS    RESTARTS   AGE       IP            NODE
+my-application-xxxxxxxx-xxxxx   1/1       Running   0          13s       x.x.x.x
+
+
 kubectl logs -f my-application-xxxxxxxx-xxxxx
+Server is listening on port 32088
 ```
 
+### Postman으로 websocket pod에 요청하기
+
+
+### nginx, websocket log 결과 확인
