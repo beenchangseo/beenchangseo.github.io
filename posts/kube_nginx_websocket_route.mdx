@@ -27,7 +27,7 @@ host에서 해당 pod로 접근하려면 NodePort로 변경해야하지만 Clust
 
 NodePort는 호스트와 통신하기위한 Nginx pod의 서비스, ClusterIP는 통신의 최종 도착지인 다른 pod 서비스이다.
 
-```YAML
+```yaml
 # NodePort Service
 apiVersion: v1
 kind: Service
@@ -41,10 +41,10 @@ spec:
   - name: http
     port: 80
     targetPort: 80
-    nodePort: 32088
+    nodePort: 32088 # 호스트와 통신할 외부 포트
     protocol: TCP
 ```
-```YAML
+```yaml
 # ClusterIP Service
 kind: Service
 apiVersion: v1
@@ -65,7 +65,7 @@ spec:
 nginx pod를 생성해보자
 
 nginx의 설정 파일(sites.conf, nginx.conf. mime.types)들은 따로 생성하여 볼륨 마운트 시켰다
-```YAML
+```yaml
 # Nginx Deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -128,7 +128,7 @@ server {
 ```
 
 ### nginx.conf
-nginx.conf 설정은 log_format만 수정함
+nginx.conf 설정은 log_format만 수정했다.
 
 ```bash
 # nginx.conf
@@ -181,18 +181,77 @@ types {
 
 ### nginx pod에 올리기
 쿠버네티스에 nginx pod를 생성한다.
-```
+```bash
+kubectl apply -f nginx_service.yaml
+kubectl apply -f nginx_deployment.yaml
 ```
 
 로그가 잘 나오는지도 확인 해보자
-```
+```bash
+kubectl get po | grep nginx
+kubectl logs -f nginx-deployment-xxxxxxxx-xxxxx
 ```
 
 
 ### websocket server pod 올리기
 실험용 테스트 웹 소켓 서버 pod를 생성해보자
-```typescript
 
+아래 소스코드를 docker image로 build 후 pod에 올릴 생각이다.
+```typescript
+import * as WebSocket from 'ws';
+import * as express from 'express';
+
+const app = express();
+
+const server = app.listen(32088, () => {
+    console.log('Server is listening on port 32088');
+});
+
+const wss = new WebSocket.Server({ server });
 ```
 
-### 
+> docker build 과정 생략...
+
+이미지가 잘 만들어졌다면 이제 웹 소켓 서버를 pod에 올리자
+
+```yaml
+# Websocket server deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-application
+  name: my-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-application
+  template:
+    metadata:
+      labels:
+        app: my-application
+    spec:
+      containers:
+      - image: my-application:latest
+        imagePullPolicy: IfNotPresent
+        name: my-application
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+status: {}
+```
+
+쿠버네티스에 아까 작성해놓은 ClusterIP Service와 websocket server pod를 생성한다.
+```bash
+kubectl apply -f clusterip_service.yaml
+kubectl apply -f my_application_deployment.yaml
+```
+
+로그가 잘 나오는지도 확인 해보자
+```bash
+kubectl get po | grep my-application
+kubectl logs -f my-application-xxxxxxxx-xxxxx
+```
+
