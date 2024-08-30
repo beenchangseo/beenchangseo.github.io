@@ -25,6 +25,13 @@
               </url>
             
               <url>
+                <loc>https://beenchangseo.github.io/blog/post/redis_ratelimit_lua_script</loc>
+                <lastmod>2024-08-30T00:00:00.000Z</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>1</priority>
+              </url>
+            
+              <url>
                 <loc>https://beenchangseo.github.io/blog/post/redis_volum_error</loc>
                 <lastmod>2024-03-15T00:00:00.000Z</lastmod>
                 <changefreq>daily</changefreq>
