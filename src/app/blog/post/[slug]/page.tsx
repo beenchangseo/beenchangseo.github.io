@@ -44,11 +44,28 @@ const Post = ({params}: {params: {slug: string}}) => {
         return false;
     }
 
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    };
+
     return (
         <>
             <section>
                 <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
-                    <h1 className="mb-16 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
+                    <h1 className="mb-8 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
+                    <div className="flex-auto mb-16">
+                        <span className="text-sm">
+                            <a href="https://beenchangseo.github.io/">beenchangseo</a>
+                        </span>
+                        <span className="ml-1 mr-1">·</span>
+                        <span className="text-sm font-medium text-gray-500">
+                            {formatDate(post.date)}
+                        </span>
+                    </div>
                     <Mdx code={post.body.code} />
                 </div>
             </section>
