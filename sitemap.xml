@@ -4,6 +4,13 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
       
               <url>
+                <loc>https://beenchangseo.github.io/blog/post/github_npm_publish</loc>
+                <lastmod>2024-09-06T00:00:00.000Z</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>1</priority>
+              </url>
+            
+              <url>
                 <loc>https://beenchangseo.github.io/blog/post/kube_nginx_websocket_route</loc>
                 <lastmod>2024-04-03T00:00:00.000Z</lastmod>
                 <changefreq>daily</changefreq>
