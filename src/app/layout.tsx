@@ -4,6 +4,7 @@ import './globals.css';
 import Providers from '../components/mode/Provider';
 import Layout from '../components/Layout';
 import {BASE_URL} from './sitemap.xml/route';
+import {Suspense} from 'react';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -29,7 +30,9 @@ export default function RootLayout({
         <html lang="en" className={inter.className} suppressHydrationWarning={true}>
             <body>
                 <Providers>
-                    <Layout>{children}</Layout>
+                    <Suspense>
+                        <Layout>{children}</Layout>
+                    </Suspense>
                 </Providers>
             </body>
         </html>

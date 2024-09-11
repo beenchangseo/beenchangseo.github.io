@@ -4,14 +4,14 @@ import CategoryList from '../../components/CategoryList';
 import PostList from '../../components/PostList';
 import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
-import {useState} from 'react';
 import {useSearchParams} from 'next/navigation';
+import {useState} from 'react';
 
 export default function Category() {
-    const searchParams = useSearchParams();
-    const category = searchParams.get('category') ?? '';
+    const params = useSearchParams();
+
     const posts = allPosts.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-    const [sellect, setSellect] = useState<string>(category);
+    const [sellect, setSellect] = useState<string>(params.get('category') ?? '');
 
     return (
         <>
