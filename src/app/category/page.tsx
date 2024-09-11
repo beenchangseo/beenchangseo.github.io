@@ -5,10 +5,13 @@ import PostList from '../../components/PostList';
 import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
 import {useState} from 'react';
+import {useSearchParams} from 'next/navigation';
 
-export default function Blog() {
+export default function Category() {
+    const searchParams = useSearchParams();
+    const category = searchParams.get('category') ?? '';
     const posts = allPosts.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-    const [sellect, setSellect] = useState<string>('');
+    const [sellect, setSellect] = useState<string>(category);
 
     return (
         <>
@@ -25,7 +28,6 @@ export default function Blog() {
             {sellect === '' ? (
                 <PostList posts={posts} />
             ) : (
-                // <PostList posts={posts.filter((post) => post.category === sellect)} />
                 <PostList posts={posts.filter((post) => post.category.includes(sellect))} />
             )}
         </>

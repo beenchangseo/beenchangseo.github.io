@@ -2,6 +2,7 @@ import {BASE_URL} from '../../../sitemap.xml/route';
 import {Mdx} from '../../../../components/Mdx';
 import {allPosts} from 'contentlayer/generated';
 import {Metadata} from 'next';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
     return allPosts.map((post) => ({
@@ -52,11 +53,23 @@ const Post = ({params}: {params: {slug: string}}) => {
         });
     };
 
+    const categoryButtonStyle =
+        'h-8 px-3 m-1 text-xs transition-colors duration-150 bg-gray-200 rounded-lg cursor-pointer focus:shadow-outline hover:bg-gray-300';
+
     return (
         <>
             <section>
                 <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
                     <h1 className="mb-8 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
+                    <div className="flex-auto mb-16">
+                        {post.category.map((item, index) => (
+                            <button className={categoryButtonStyle} key={index}>
+                                <Link href={{pathname: '/category', query: {category: item}}}>
+                                    {item}
+                                </Link>
+                            </button>
+                        ))}
+                    </div>
                     <div className="flex-auto mb-16">
                         <span className="text-sm">
                             <a href="https://beenchangseo.github.io/">beenchangseo</a>
