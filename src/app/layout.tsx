@@ -5,6 +5,7 @@ import Providers from '../components/mode/Provider';
 import Layout from '../components/Layout';
 import {BASE_URL} from './sitemap.xml/route';
 import {Suspense} from 'react';
+import {AuthProvider} from '../context/authProvider';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -29,11 +30,13 @@ export default function RootLayout({
     return (
         <html lang="en" className={inter.className} suppressHydrationWarning={true}>
             <body>
-                <Providers>
-                    <Suspense>
-                        <Layout>{children}</Layout>
-                    </Suspense>
-                </Providers>
+                <AuthProvider>
+                    <Providers>
+                        <Suspense>
+                            <Layout>{children}</Layout>
+                        </Suspense>
+                    </Providers>
+                </AuthProvider>
             </body>
         </html>
     );
