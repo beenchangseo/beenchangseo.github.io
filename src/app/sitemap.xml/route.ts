@@ -1,6 +1,6 @@
 import {allPosts} from 'contentlayer/generated';
 
-export const BASE_URL = 'https://beenchangseo.github.io/';
+export const BASE_URL = 'https://blog.beenslab.com/';
 
 function getSitemap() {
     return `<?xml version="1.0" encoding="UTF-8"?>

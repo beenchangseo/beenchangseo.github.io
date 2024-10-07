@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "start": "next start",
+    "dev": "next dev -p 7777",
+    "start": "next start -p 7777",
     "lint": "next lint",
     "build": "next build",
     "predeploy": "npm run build",
@@ -17,9 +17,11 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
+    "axios": "^1.7.7",
     "contentlayer": "^0.3.4",
     "firebase": "^10.13.1",
     "next": "14.2.0",
+    "next-auth": "^5.0.0-beta.22",
     "next-contentlayer": "^0.3.4",
     "next-themes": "^0.2.1",
     "react": "^18",
@@ -29,6 +31,7 @@
     "shiki": "^1.1.7"
   },
   "devDependencies": {
+    "@types/next-auth": "^3.15.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
