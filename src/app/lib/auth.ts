@@ -85,6 +85,10 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
 
 export const authOptions: NextAuthConfig = {
     providers: [BeensOAuthProvider()],
+    pages: {
+        // signIn: '/admin/signin',
+    },
+    trustHost: true,
     session: {
         strategy: 'jwt',
         maxAge: 1900, // 7 * 24 * 60 * 60, // 7 days

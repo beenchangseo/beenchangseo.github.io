@@ -4,7 +4,9 @@ import {auth} from './app/lib/auth';
 export async function middleware(request: NextRequest) {
     const session = await auth();
     if (!session) {
-        return NextResponse.redirect(new URL('/admin/login', request.url));
+        return NextResponse.redirect(
+            new URL(`/api/auth/signin?callbackUrl=${request.url}`, request.url),
+        );
     }
 }
 
