@@ -1,16 +1,13 @@
-'use client'
+'use client';
 import React from 'react';
-import {signIn} from 'next-auth/react'; // auth.js의 signIn 함수 사용
-
+import {signIn} from 'next-auth/react';
+import Link from 'next/link';
 
 const SignInPage: React.FC = () => {
+    const signUpUrl = process.env.NEXT_PUBLIC_OAUTH_SIGNUP_URL!;
     const handleOAuthSignIn = () => {
-        signIn('beens-oauth', {redirectTo: '/admin'}); // Google OAuth 로그인을 예시로 사용
+        signIn('beens-oauth', {redirectTo: '/admin'});
     };
-    
-    const handleOauthSignUp = () => {
-        // TODO:: redirect oauth sign-up
-    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -31,12 +28,13 @@ const SignInPage: React.FC = () => {
                 <div className="mt-6 text-center">
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                         계정이 없으신가요?{' '}
-                        <a
-                            href="/signup"
+                        <Link
+                            href={signUpUrl}
                             className="text-indigo-600 dark:text-indigo-400 hover:underline"
+                            target="_blank"
                         >
                             회원가입
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>
