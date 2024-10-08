@@ -1,6 +1,6 @@
 'use client';
 
-import PostList from '../../components/PostList';
+import PostList from '../../../components/PostList';
 import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
 import {ChangeEvent, useState} from 'react';

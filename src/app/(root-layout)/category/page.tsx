@@ -1,7 +1,7 @@
 'use client';
 
-import CategoryList from '../../components/CategoryList';
-import PostList from '../../components/PostList';
+import CategoryList from '../../../components/CategoryList';
+import PostList from '../../../components/PostList';
 import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
 import {useSearchParams} from 'next/navigation';

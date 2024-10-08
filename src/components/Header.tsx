@@ -4,8 +4,11 @@ import {useEffect, useRef, useState} from 'react';
 import Nav from './Nav';
 import Link from 'next/link';
 import DarkModeButton from './mode/DarkMode';
+import {useSession, signOut} from 'next-auth/react';
 
 export default function Header() {
+    const {data: session} = useSession();
+
     const headerRef = useRef<HTMLElement>(null);
     const toggleRef = useRef<HTMLDivElement>(null);
     const [onToggle, setOnToggle] = useState<boolean>(false);
@@ -66,6 +69,14 @@ export default function Header() {
                         </button>
                         <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex">
                             <Nav type="normal" />
+                            {session != null ? (
+                                <button
+                                    className="ml-10 text-xs"
+                                    onClick={() => signOut({redirectTo: '/'})}
+                                >
+                                    Logout
+                                </button>
+                            ) : null}
                         </div>
                     </div>
                 </div>

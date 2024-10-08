@@ -1,5 +1,5 @@
-import {BASE_URL} from '../../../sitemap.xml/route';
-import {Mdx} from '../../../../components/Mdx';
+import {BASE_URL} from '../../../../sitemap.xml/route';
+import {Mdx} from '../../../../../components/Mdx';
 import {allPosts} from 'contentlayer/generated';
 import {Metadata} from 'next';
 import Link from 'next/link';

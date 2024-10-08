@@ -1,8 +1,6 @@
 import type {Metadata} from 'next';
 import {Inter} from 'next/font/google';
-import './globals.css';
 import Providers from '../components/mode/Provider';
-import Layout from '../components/Layout';
 import {BASE_URL} from './sitemap.xml/route';
 import {Suspense} from 'react';
 import {AuthProvider} from '../context/authProvider';
@@ -32,9 +30,7 @@ export default async function RootLayout({
             <body>
                 <AuthProvider>
                     <Providers>
-                        <Suspense>
-                            <Layout>{children}</Layout>
-                        </Suspense>
+                        <Suspense>{children}</Suspense>
                     </Providers>
                 </AuthProvider>
             </body>

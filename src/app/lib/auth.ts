@@ -30,7 +30,7 @@ const BeensOAuthProvider = (): OAuth2Config<User> => ({
     clientId: process.env.OAUTH_CLIENT_ID!,
     clientSecret: process.env.OAUTH_CLIENT_SECRET_ID!,
     checks: ['state'],
-    profile(profile, token) {
+    profile(profile) {
         return {
             id: profile.id,
             name: profile.name,
@@ -86,7 +86,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
 export const authOptions: NextAuthConfig = {
     providers: [BeensOAuthProvider()],
     pages: {
-        // signIn: '/admin/signin',
+        signIn: '/admin/signin',
     },
     trustHost: true,
     session: {
