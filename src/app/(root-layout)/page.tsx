@@ -26,9 +26,8 @@ export default function Home() {
                 <div className="min-w-[250] max-w-[300px]">
                     <h2 className="font-bold text-xl">꾸준히 즐기는 개발자 서창빈 입니다.</h2>
                     <br />
-                    <p>만들고 싶으면 만들어야 한다</p>
-                    <p>이직에 항상 열려있습니다</p>
-                    <p>정리를 하는 습관을 들이려고 만든 블로그</p>
+                    <p>만들고 싶으면 만들어야 하는 사람</p>
+                    <p>정리를 하는 습관을 들이려고 만든 블로그 입니다.</p>
                     <div className="flex gap-5 items-center mt-4">
                         <a
                             href="mailto:beenchangseo@gmail.com"
