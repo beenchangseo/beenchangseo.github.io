@@ -25,14 +25,23 @@ const WorkExperience = () => {
 
     return (
         <section className="space-y-8">
-            <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2 mb-8">Work Experience</h2>
+            <h2 className="text-2xl font-semibold border-b border-gray-300 dark:border-gray-700 pb-2 mb-8">
+                Work Experience
+            </h2>
             <div className="space-y-8">
                 {experiences.map((exp, index) => (
-                    <div key={index} className="border border-gray-800 p-6 rounded-lg bg-[#1a1a1a] shadow-lg">
-                        <h3 className="text-xl font-bold">{exp.company}</h3>
-                        <p className="text-gray-400">Role: {exp.role}</p>
-                        <p className="mt-2 text-gray-300">{exp.description}</p>
-                        <p className="text-gray-500 mt-4 text-sm">{exp.duration}</p>
+                    <div
+                        key={index}
+                        className="border border-gray-300 dark:border-gray-800 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg"
+                    >
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                            {exp.company}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400">Role: {exp.role}</p>
+                        <p className="mt-2 text-gray-700 dark:text-gray-300">{exp.description}</p>
+                        <p className="text-gray-500 dark:text-gray-500 mt-4 text-sm">
+                            {exp.duration}
+                        </p>
                     </div>
                 ))}
             </div>

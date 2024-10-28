@@ -1,7 +1,7 @@
 'use client';
 
-import {useState} from 'react';
-import {FaStar, FaChevronDown, FaChevronUp} from 'react-icons/fa';
+import { useState } from 'react';
+import { FaStar, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 type Skill = {
     name: string;
@@ -32,38 +32,38 @@ const Skills = () => {
 
     const skills: SkillsCategory = {
         languages: [
-            {name: 'JavaScript', level: 5},
-            {name: 'TypeScript', level: 5},
-            {name: 'JAVA', level: 3},
-            {name: 'Python', level: 3},
-            {name: 'Go', level: 2},
+            { name: 'JavaScript', level: 5 },
+            { name: 'TypeScript', level: 5 },
+            { name: 'JAVA', level: 3 },
+            { name: 'Python', level: 3 },
+            { name: 'Go', level: 2 },
         ],
         frameworks: [
-            {name: 'Express', level: 5},
-            {name: 'Nest.js', level: 4},
-            {name: 'React', level: 3},
-            {name: 'Next.js', level: 3},
-            {name: 'Spring', level: 3},
+            { name: 'Express', level: 5 },
+            { name: 'Nest.js', level: 4 },
+            { name: 'React', level: 3 },
+            { name: 'Next.js', level: 3 },
+            { name: 'Spring', level: 3 },
         ],
         databases: [
-            {name: 'Postgres', level: 4},
-            {name: 'Redis', level: 4},
-            {name: 'Kafka', level: 3},
-            {name: 'Mysql', level: 3},
-            {name: 'MariaDB', level: 3},
+            { name: 'Postgres', level: 4 },
+            { name: 'Redis', level: 4 },
+            { name: 'Kafka', level: 3 },
+            { name: 'Mysql', level: 3 },
+            { name: 'MariaDB', level: 3 },
         ],
         infrastructure: [
-            {name: 'Docker', level: 4},
-            {name: 'Kubernetes', level: 3},
-            {name: 'AWS', level: 3},
-            {name: 'Jenkins', level: 3},
-            {name: 'ArgoCD', level: 3},
+            { name: 'Docker', level: 4 },
+            { name: 'Kubernetes', level: 3 },
+            { name: 'AWS', level: 3 },
+            { name: 'Jenkins', level: 3 },
+            { name: 'ArgoCD', level: 3 },
         ],
         communication: [
-            {name: 'Slack', level: 5},
-            {name: 'Jira', level: 5},
-            {name: 'Confluence', level: 5},
-            {name: 'Notion', level: 5},
+            { name: 'Slack', level: 5 },
+            { name: 'Jira', level: 5 },
+            { name: 'Confluence', level: 5 },
+            { name: 'Notion', level: 5 },
         ],
     };
 
@@ -81,12 +81,17 @@ const Skills = () => {
 
     return (
         <section className="space-y-2">
-            <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2 mb-8">Skills</h2>
+            <h2 className="text-2xl font-semibold border-b border-gray-300 dark:border-gray-700 pb-2 mb-8">
+                Skills
+            </h2>
 
             {Object.entries(skills).map(([category, skillSet]) => (
-                <div key={category} className="space-y-4 bg-[#1a1a1a] p-4 rounded-md">
+                <div
+                    key={category}
+                    className="space-y-4 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-gray-800 p-4 rounded-md shadow-lg"
+                >
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xl font-semibold">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                             {category.charAt(0).toUpperCase() + category.slice(1)}
                         </h3>
                         <div className="flex items-center">
@@ -98,7 +103,7 @@ const Skills = () => {
                                             className={`w-4 h-4 ${
                                                 i < calculateAverageLevel(skillSet)
                                                     ? 'text-yellow-400'
-                                                    : 'text-gray-600'
+                                                    : 'text-gray-400 dark:text-gray-600'
                                             }`}
                                         />
                                     ))}
@@ -106,11 +111,9 @@ const Skills = () => {
                             )}
                             <button
                                 onClick={() => toggleDetailView(category as keyof SkillsCategory)}
-                                className="flex items-center text-sm text-blue-500 hover:text-blue-700 focus:outline-none"
+                                className="flex items-center text-sm text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 focus:outline-none"
                             >
-                                {isDetailed[category as keyof SkillsCategory]
-                                    ? 'Collapse'
-                                    : 'Expand'}
+                                {isDetailed[category as keyof SkillsCategory] ? 'Collapse' : 'Expand'}
                                 {isDetailed[category as keyof SkillsCategory] ? (
                                     <FaChevronUp className="ml-1 w-4 h-4" />
                                 ) : (
@@ -125,14 +128,16 @@ const Skills = () => {
                             {skillSet.map((skill, index) => (
                                 <li
                                     key={index}
-                                    className="px-4 py-2 rounded-md text-gray-300 shadow-sm flex items-center justify-between"
+                                    className="px-4 py-2 rounded-md text-gray-900 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 shadow-sm flex items-center justify-between"
                                 >
                                     <span>{skill.name}</span>
                                     <div className="flex">
                                         {[...Array(5)].map((_, i) => (
                                             <FaStar
                                                 key={i}
-                                                className={`w-4 h-4 ${i < skill.level ? 'text-yellow-400' : 'text-gray-600'}`}
+                                                className={`w-4 h-4 ${
+                                                    i < skill.level ? 'text-yellow-400' : 'text-gray-400 dark:text-gray-600'
+                                                }`}
                                             />
                                         ))}
                                     </div>

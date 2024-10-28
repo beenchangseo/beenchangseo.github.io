@@ -2,8 +2,7 @@ const Projects = () => {
     const projects = [
         {
             title: 'beenchangseo.github.io',
-            description:
-                'Next.js로 작성된 블로그 프로젝트 입니다.',
+            description: 'Next.js로 작성된 블로그 프로젝트 입니다.',
         },
         {
             title: 'create-oauth-app',
@@ -12,8 +11,7 @@ const Projects = () => {
         },
         {
             title: 'hangle-to-romanized',
-            description:
-                '한글인명 로마자 변환기 프로젝트입니다.',
+            description: '한글인명 로마자 변환기 프로젝트입니다.',
         },
         {
             title: 'sqs-provider',
@@ -24,15 +22,21 @@ const Projects = () => {
 
     return (
         <section className="space-y-8">
-            <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2 mb-8">Projects</h2>
+            <h2 className="text-2xl font-semibold border-b border-gray-300 dark:border-gray-700 pb-2 mb-8">
+                Projects
+            </h2>
             <div className="space-y-8">
                 {projects.map((project, index) => (
                     <div
                         key={index}
-                        className="border border-gray-800 p-6 rounded-lg bg-[#1a1a1a] shadow-lg"
+                        className="border border-gray-300 dark:border-gray-800 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg"
                     >
-                        <h3 className="text-xl font-bold">{project.title}</h3>
-                        <p className="text-gray-300 mt-2">{project.description}</p>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                            {project.title}
+                        </h3>
+                        <p className="text-gray-700 dark:text-gray-300 mt-2">
+                            {project.description}
+                        </p>
                     </div>
                 ))}
             </div>
