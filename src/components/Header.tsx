@@ -5,6 +5,7 @@ import Nav from './Nav';
 import Link from 'next/link';
 import DarkModeButton from './mode/DarkMode';
 import {useSession, signOut} from 'next-auth/react';
+import {useRouter} from 'next/navigation';
 
 export default function Header() {
     const {data: session} = useSession();
@@ -12,6 +13,8 @@ export default function Header() {
     const headerRef = useRef<HTMLElement>(null);
     const toggleRef = useRef<HTMLDivElement>(null);
     const [onToggle, setOnToggle] = useState<boolean>(false);
+
+    const router = useRouter();
 
     const handleScroll = () => {
         if (window.scrollY > 0) {
@@ -28,6 +31,10 @@ export default function Header() {
             toggleRef.current?.classList.remove('hidden');
         }
         setOnToggle((prev) => !prev);
+    };
+
+    const handleLogin = () => {
+        router.push('/admin');
     };
 
     useEffect(() => {
@@ -69,14 +76,14 @@ export default function Header() {
                         </button>
                         <div className="flex-nowrap items-center justify-center gap-5 text-center hidden sm:flex">
                             <Nav type="normal" />
-                            {session != null ? (
-                                <button
-                                    className="ml-10 text-xs"
-                                    onClick={() => signOut({redirectTo: '/'})}
-                                >
-                                    Logout
-                                </button>
-                            ) : null}
+                            <button
+                                className="ml-10 text-xs"
+                                onClick={() =>
+                                    session ? signOut({redirectTo: '/'}) : handleLogin()
+                                }
+                            >
+                                {session ? 'Logout' : 'Login'}
+                            </button>
                         </div>
                     </div>
                 </div>
