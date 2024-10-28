@@ -102,7 +102,7 @@ export const authOptions: NextAuthConfig = {
             // 최초 로그인 시 토큰 설정
             if (account && user) {
                 const accessTokenExpires = (account.expires_at as number) * 1000; // 기본 1시간
-                console.log('Initial login - accessTokenExpires:', accessTokenExpires);
+                // console.log('Initial login - accessTokenExpires:', accessTokenExpires);
                 return {
                     accessToken: account.access_token,
                     accessTokenExpires,
@@ -116,12 +116,12 @@ export const authOptions: NextAuthConfig = {
 
             // 토큰 만료 여부 확인
             if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
-                console.log('Access token is still valid');
+                // console.log('Access token is still valid');
                 return token;
             }
 
             // 토큰 만료 시 갱신 시도
-            console.log('Access token has expired, refreshing...');
+            // console.log('Access token has expired, refreshing...');
             token = await refreshAccessToken(token);
             return token;
         },
