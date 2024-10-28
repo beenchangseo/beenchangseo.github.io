@@ -1,9 +1,9 @@
 'use client';
-import React from 'react';
+
 import {signIn} from 'next-auth/react';
 import Link from 'next/link';
 
-const SignInPage: React.FC = () => {
+export default function SignInPage() {
     const signUpUrl = process.env.NEXT_PUBLIC_OAUTH_SIGNUP_URL!;
     const handleOAuthSignIn = () => {
         signIn('beens-oauth', {redirectTo: '/admin'});
@@ -42,4 +42,3 @@ const SignInPage: React.FC = () => {
     );
 };
 
-export default SignInPage;
