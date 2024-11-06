@@ -1,17 +1,16 @@
 'use client';
 
-import CategoryList from '../../../components/CategoryList';
+import CategoryList from '../../../components/category/CategoryList';
 import PostList from '../../../components/PostList';
-import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
-import {useSearchParams} from 'next/navigation';
-import {useState} from 'react';
+import {useRecoilValue} from 'recoil';
+import {categoryState} from '../../../state/categoryState';
+import {useFetchPostList, useSearchCategoryPost} from '../../../hooks/useFetchPostList';
 
 export default function Category() {
-    const params = useSearchParams();
-
-    const posts = allPosts.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-    const [sellect, setSellect] = useState<string>(params.get('category') ?? '');
+    const posts = useFetchPostList();
+    const categories = useRecoilValue(categoryState);
+    const {posts: sellectedPosts, sellect, setSellect} = useSearchCategoryPost(posts);
 
     return (
         <>
@@ -23,13 +22,9 @@ export default function Category() {
             </Head>
             <section className="mt-12 mb-8 flex flex-col gap-12">
                 <h1 className="font-bold text-2xl sm:text-4xl font-mono">🗂 Category</h1>
-                <CategoryList sellect={sellect} setSellect={setSellect} />
+                <CategoryList sellect={sellect} setSellect={setSellect} categories={categories} />
             </section>
-            {sellect === '' ? (
-                <PostList posts={posts} />
-            ) : (
-                <PostList posts={posts.filter((post) => post.category.includes(sellect))} />
-            )}
+            <PostList posts={sellectedPosts} />
         </>
     );
 }

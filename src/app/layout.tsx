@@ -1,9 +1,10 @@
 import type {Metadata} from 'next';
 import {Inter} from 'next/font/google';
-import Providers from '../components/mode/Provider';
-import {BASE_URL} from './sitemap.xml/route';
+import ThemaProvider from '../components/mode/ThemaProvider';
 import {Suspense} from 'react';
 import {AuthProvider} from '../context/authProvider';
+import {BASE_URL} from '../types/constants';
+import CategoryProvider from '../components/category/CategoryProvider';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -28,10 +29,15 @@ export default async function RootLayout({
     return (
         <html lang="en" className={inter.className} suppressHydrationWarning={true}>
             <body>
+                {/* Auth.js */}
                 <AuthProvider>
-                    <Providers>
-                        <Suspense>{children}</Suspense>
-                    </Providers>
+                    {/* 다크/라이트모드 */}
+                    <ThemaProvider>
+                        {/* 카테고리 리스트를 전역으로 호출 하기 위한 클라이언트 전용 컴포넌트 */}
+                        <CategoryProvider>
+                            <Suspense>{children}</Suspense>
+                        </CategoryProvider>
+                    </ThemaProvider>
                 </AuthProvider>
             </body>
         </html>

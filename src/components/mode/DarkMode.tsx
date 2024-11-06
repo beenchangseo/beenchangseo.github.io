@@ -1,7 +1,7 @@
 import {useTheme} from 'next-themes';
 import {FaMoon, FaSun} from 'react-icons/fa';
 
-const DarkModeButton = () => {
+export default function DarkModeButton() {
     const {theme, setTheme} = useTheme();
 
     return (
@@ -14,6 +14,4 @@ const DarkModeButton = () => {
             </button>
         </>
     );
-};
-
-export default DarkModeButton;
+}

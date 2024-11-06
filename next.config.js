@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const {withContentlayer} = require('next-contentlayer');
+// const {withContentlayer} = require('next-contentlayer');
 
 const nextConfig = {
     // output: 'export', // github page에서 vercel로 이전하면서 주석 처리함
@@ -12,4 +12,4 @@ const nextConfig = {
     },
 };
 
-module.exports = withContentlayer(nextConfig);
+module.exports = nextConfig;

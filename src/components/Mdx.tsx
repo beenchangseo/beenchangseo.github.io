@@ -1,7 +1,20 @@
-import {useMDXComponent} from 'next-contentlayer/hooks';
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 
-export function Mdx({code}: {code: string}) {
-    const MDXComponent = useMDXComponent(code);
+type MarkdownRendererProps = {
+    markdown: string;
+};
 
-    return <MDXComponent />;
+export function Mdx({markdown}: MarkdownRendererProps) {
+    return (
+        <>
+            <ReactMarkdown
+                // children={markdown}
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+            >{markdown}</ReactMarkdown>
+        </>
+    );
 }

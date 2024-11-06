@@ -1,20 +1,20 @@
-import {Post} from 'contentlayer/generated';
+import {GetAllPostResponse} from '../app/api/posts/route';
 import BlogPost from './BlogPost';
 
-interface RecentPostsProps {
-    posts: Post[];
+type PostListProps = {
+    posts: GetAllPostResponse[];
 }
 
-export default function PostList({posts}: RecentPostsProps) {
+export default function PostList({posts}: PostListProps) {
     return (
         <div className="flex flex-col">
-            {posts.map((post: Post) => (
+            {posts.map((post: GetAllPostResponse) => (
                 <BlogPost
-                    date={post.date}
+                    date={post.update_time}
                     title={post.title}
                     des={post.description}
-                    slug={post._raw.flattenedPath}
-                    key={post._id}
+                    slug={post.id}
+                    key={post.title}
                 />
             ))}
         </div>

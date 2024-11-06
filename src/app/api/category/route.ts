@@ -1,23 +1,16 @@
-// api/posts/[title]/route.ts
 import axios from 'axios';
-import {NextRequest, NextResponse} from 'next/server';
+import {NextResponse} from 'next/server';
 
-export type GetPostResponse = {
-    user_id: string;
+export type GetAllCategoryResponse = {
+    id: string;
     title: string;
-    description: string;
-    tags: string[];
-    categories: string[];
-    contents: string;
-    update_time: Date;
+    keyword: string;
 };
 
-export async function GET({params}: {params: string}) {
+export async function GET() {
     try {
-        const response: GetPostResponse = (
-            await axios.get(`${process.env.BACKEND_API_SERVER}/blog/post`, {
-                params: {title: params},
-            })
+        const response: GetAllCategoryResponse[] = (
+            await axios.get(`${process.env.BACKEND_API_SERVER}/category/list`)
         ).data;
 
         return NextResponse.json(response);

@@ -1,5 +1,5 @@
 import {MetadataRoute} from 'next';
-import {BASE_URL} from './sitemap.xml/route';
+import {BASE_URL} from '../types/constants';
 
 export default function robots(): MetadataRoute.Robots {
     return {
