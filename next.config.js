@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-// const {withContentlayer} = require('next-contentlayer');
 
 const nextConfig = {
     // output: 'export', // github page에서 vercel로 이전하면서 주석 처리함
@@ -9,6 +8,15 @@ const nextConfig = {
     },
     compiler: {
         styledComponents: true, // styled-components 사용 시 컴파일러에 추가
+    },
+    async redirects() {
+        return [
+            {
+                source: '/sitemap.xml',
+                destination: `${process.env.BACKEND_API_SERVER}/sitemap.xml`,
+                permanent: true,
+            },
+        ];
     },
 };
 
