@@ -7,11 +7,11 @@ interface BlogPostProps {
     slug: string;
 }
 
-const BlogPost = ({date, title, des, slug}: BlogPostProps) => {
+export default function BlogPost({date, title, des, slug}: BlogPostProps) {
     return (
         <Link href={`/blog/post/${slug}`} passHref className="w-full my-7">
             <div className="font-medium text-xs transition text-gray-500 dark:text-gray-300">
-                {date}
+                {new Date(date).toLocaleDateString()}
             </div>
             <div className="font-extrabold text-xl sm:text-2xl mt-2 transition text-black dark:text-white hover:text-green-500 dark:hover:text-green-500">
                 {title}
@@ -21,6 +21,4 @@ const BlogPost = ({date, title, des, slug}: BlogPostProps) => {
             </div>
         </Link>
     );
-};
-
-export default BlogPost;
+}

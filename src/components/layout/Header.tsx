@@ -7,7 +7,7 @@ import {useSession, signOut} from 'next-auth/react';
 import {useRouter} from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-const DarkModeButton = dynamic(() => import('./mode/DarkMode'), { ssr: false });
+const DarkModeButton = dynamic(() => import('../mode/DarkMode'), { ssr: false });
 
 export default function Header() {
     const {data: session} = useSession();

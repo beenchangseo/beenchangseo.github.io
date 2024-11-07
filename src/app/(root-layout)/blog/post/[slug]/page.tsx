@@ -1,50 +1,19 @@
-import {BASE_URL} from '../../../../sitemap.xml/route';
-import {Mdx} from '../../../../../components/Mdx';
-import {allPosts} from 'contentlayer/generated';
-import {Metadata} from 'next';
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import {Mdx} from '../../../../../components/Mdx';
+import {useFetchPost} from '../../../../../hooks/useFetchPost';
+import {useRecoilValue} from 'recoil';
+import {categoryState} from '../../../../../state/categoryState';
 
-export async function generateStaticParams() {
-    return allPosts.map((post) => ({
-        slug: post._raw.flattenedPath,
-    }));
-}
+export default function PostPage({params}: {params: {slug: string}}) {
+    const {post, loading, error} = useFetchPost(params.slug);
+    const categories = useRecoilValue(categoryState);
 
-export const generateMetadata = async ({params}: {params: {slug: string}}): Promise<Metadata> => {
-    const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-
-    if (!post) {
-        return {};
-    }
-
-    return {
-        metadataBase: new URL(BASE_URL),
-        title: post.title,
-        description: post.description,
-        keywords: post.tags.join(', '),
-        openGraph: {
-            title: post.title,
-            siteName: 'Beenchangseo Blog',
-            description: post.description,
-            url: `/${post._raw.flattenedPath}`,
-            locale: 'ko_KR',
-            type: 'article',
-            tags: post.tags,
-        },
-        twitter: {
-            creator: 'beenchangseo',
-            title: post.title,
-            description: post.description,
-        },
-    };
-};
-
-const Post = ({params}: {params: {slug: string}}) => {
-    const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-    if (!post) {
-        return false;
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+    if (!post) return <p>Post not found.</p>;
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('ko-KR', {
@@ -63,13 +32,18 @@ const Post = ({params}: {params: {slug: string}}) => {
                 <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
                     <h1 className="mb-8 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
                     <div className="flex-auto mb-4">
-                        {post.category.map((item, index) => (
-                            <button className={categoryButtonStyle} key={index}>
-                                <Link href={{pathname: '/category', query: {category: item}}}>
-                                    {item}
-                                </Link>
-                            </button>
-                        ))}
+                        {post.categories.map((item, index) => {
+                            const category = categories.find(
+                                (category) => category.keyword === item,
+                            );
+                            return (
+                                <button className={categoryButtonStyle} key={index}>
+                                    <Link href={{pathname: '/category', query: {category: item}}}>
+                                        {category ? category.title : item}
+                                    </Link>
+                                </button>
+                            );
+                        })}
                     </div>
                     <div className="flex items-center justify-between mb-16">
                         <span className="text-sm">
@@ -77,7 +51,7 @@ const Post = ({params}: {params: {slug: string}}) => {
                         </span>
                         <span className="ml-1 mr-1">·</span>
                         <span className="text-sm font-medium text-gray-500">
-                            {formatDate(post.date)}
+                            {formatDate(post.update_time.toString())}
                         </span>
                         <span className="flex items-center ml-auto">
                             <a href="https://hits.seeyoufarm.com">
@@ -91,10 +65,9 @@ const Post = ({params}: {params: {slug: string}}) => {
                             </a>
                         </span>
                     </div>
-                    <Mdx code={post.body.code} />
+                    <Mdx markdown={post.contents} />
                 </div>
             </section>
         </>
     );
-};
-export default Post;
+}

@@ -1,9 +1,10 @@
-import {categorys} from '../data/category';
+import {GetAllCategoryResponse} from '../../app/api/category/route';
 import {Dispatch, SetStateAction} from 'react';
 
 interface CategoryListProps {
     setSellect: Dispatch<SetStateAction<string>>;
     sellect: string;
+    categories: GetAllCategoryResponse[];
 }
 
 const sellectedStyle =
@@ -11,10 +12,10 @@ const sellectedStyle =
 const defaultStyle =
     'px-3 py-1 sm:text-lg border-0.5 border-gray-700 dark:border-gray-300 rounded-2xl transition-transform duration-300 hover:scale-110';
 
-export default function CategoryList({setSellect, sellect}: CategoryListProps) {
+export default function CategoryList({setSellect, sellect, categories}: CategoryListProps) {
     return (
         <div className="flex flex-wrap gap-4">
-            {categorys.map((category) => {
+            {categories.map((category) => {
                 if (sellect === category.keyword)
                     return (
                         <button

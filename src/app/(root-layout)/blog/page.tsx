@@ -1,18 +1,12 @@
 'use client';
 
 import PostList from '../../../components/PostList';
-import {allPosts} from 'contentlayer/generated';
 import Head from 'next/head';
-import {ChangeEvent, useState} from 'react';
+import {useFetchPostList, useSearchTextPost} from '../../../hooks/useFetchPostList';
 
 export default function Blog() {
-    const posts = allPosts.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-
-    const [search, setSearch] = useState<string>('');
-
-    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value.toLowerCase());
-    };
+    const posts = useFetchPostList();
+    const {handleSearch, posts: searchPost} = useSearchTextPost(posts);
 
     return (
         <>
@@ -47,7 +41,7 @@ export default function Blog() {
                     />
                 </div>
             </section>
-            <PostList posts={posts.filter((post) => post.title.toLowerCase().includes(search))} />
+            <PostList posts={searchPost} />
         </>
     );
 }
