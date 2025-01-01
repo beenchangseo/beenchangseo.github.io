@@ -7,7 +7,7 @@ import {useSession, signOut} from 'next-auth/react';
 import {useRouter} from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-const DarkModeButton = dynamic(() => import('../mode/DarkMode'), { ssr: false });
+const DarkModeButton = dynamic(() => import('../mode/DarkMode'), {ssr: false});
 
 export default function Header() {
     const {data: session} = useSession();
@@ -54,9 +54,7 @@ export default function Header() {
             >
                 <div className="max-w-screen-md h-20 flex flex-nowrap items-center justify-between m-auto px-8">
                     <Link href="/">
-                        <h1 className="font-bold stroke-black dark:stroke-white">
-                            BEENCHANGSEO.DEV
-                        </h1>
+                        <h1 className="font-bold stroke-black dark:stroke-white">Beenslab Blog</h1>
                     </Link>
 
                     <div className="flex flex-nowrap gap-8 items-center">
