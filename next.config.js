@@ -9,15 +9,6 @@ const nextConfig = {
     compiler: {
         styledComponents: true, // styled-components 사용 시 컴파일러에 추가
     },
-    async redirects() {
-        return [
-            {
-                source: '/sitemap.xml',
-                destination: `${process.env.BACKEND_API_SERVER}/sitemap.xml`,
-                permanent: true,
-            },
-        ];
-    },
 };
 
 module.exports = nextConfig;
