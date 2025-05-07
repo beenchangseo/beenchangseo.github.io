@@ -11,7 +11,9 @@ export const useFetchCategories = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('/api/category'); // 서버 API 호출
+                const response = await fetch('/api/category', {
+                    cache: 'no-cache',
+                }); // 서버 API 호출
                 const data: GetAllCategoryResponse[] = (await response.json()).data;
 
                 setCategories(data); // 받아온 데이터를 Recoil 상태로 설정
