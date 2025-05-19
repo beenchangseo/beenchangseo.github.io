@@ -12,7 +12,7 @@ export const useFetchCategories = () => {
         const fetchCategories = async () => {
             try {
                 const response = await fetch('/api/category', {
-                    cache: 'no-cache',
+                    // cache: 'no-cache',
                 }); // 서버 API 호출
                 const data: GetAllCategoryResponse[] = (await response.json()).data;
 

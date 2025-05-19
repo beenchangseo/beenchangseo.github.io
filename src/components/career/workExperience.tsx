@@ -4,21 +4,21 @@ const WorkExperience = () => {
             company: '주식회사 디앤에스에버',
             role: 'Backend developer',
             description:
-                '가상 자산 거래소 Probit Global의 거래소 서비스 개발 및 유지보수를 담당했습니다.',
+                '가상 자산 거래소 Probit Global의 거래소 서비스 백엔드 개발',
             duration: '2023-12 - 재직중',
         },
         {
             company: '주식회사 오션스',
             role: 'Backend developer',
             description:
-                '가상 자산 거래소 Probit Korea의 거래소 서비스 개발 및 유지보수를 담당했습니다.',
+                '가상 자산 거래소 Probit Korea의 거래소 서비스 백엔드 개발',
             duration: '2022-09 - 2023-11',
         },
         {
             company: '주식회사 동부아이씨티',
             role: 'Backend developer',
             description:
-                'ITS(Intelligent Transport Systems 지능형 교통 체계) 개발 및 유지보수를 담당했습니다.',
+                'ITS(Intelligent Transport Systems 지능형 교통 체계) 개발 및 유지보수',
             duration: '2022-09 - 2023-11',
         },
     ];
