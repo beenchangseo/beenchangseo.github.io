@@ -12,7 +12,7 @@ const useFetchPostList = () => {
         const fetchPosts = async () => {
             try {
                 const res = await fetch('/api/posts', {
-                    cache: 'no-cache',
+                    cache: 'force-cache',
                 });
                 
                 const data = (await res.json()).data;

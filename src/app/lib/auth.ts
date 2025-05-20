@@ -56,7 +56,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
                 grant_type: 'refresh_token',
                 refresh_token: token.refreshToken as string,
             }),
-            // cache: 'no-cache',
+            cache: 'force-cache',
         });
 
         const data: PostTokenResponse = await response.json();

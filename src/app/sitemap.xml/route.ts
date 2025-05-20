@@ -4,7 +4,7 @@ export async function GET() {
     try {
         // 백엔드에서 사이트맵 데이터 가져오기
         const response = await fetch(`${process.env.BACKEND_API_SERVER}/sitemap.xml`, {
-            // cache: 'no-cache',
+            cache: 'force-cache',
         });
         const originalSitemap = await response.text();
 

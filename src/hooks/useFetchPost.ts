@@ -12,7 +12,7 @@ const useFetchPost = (slug: string) => {
         const fetchPost = async () => {
             try {
                 const res = await fetch(`/api/posts/${slug}`, {
-                    // cache: 'no-cache',
+                    cache: 'force-cache',
                 });
                 const data = await res.json();
                 setPost(data.data);
