@@ -54,13 +54,14 @@ export default function PostPage({params}: {params: {slug: string}}) {
                             {formatDate(post.update_time.toString())}
                         </span>
                         <span className="flex items-center ml-auto">
-                            <a href="https://hits.seeyoufarm.com">
+                            <a href="#">
                                 <Image
                                     className="mb-0 mt-0"
-                                    src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fbeenchangseo.github.io&count_bg=%234B4B4B&title_bg=%23929292&icon=tencentqq.svg&icon_color=%23E7E7E7&title=TODAY&edge_flat=false"
-                                    alt="Landscape picture"
-                                    width={130}
+                                    src="https://hits.beenslab.com/?domain=beenslab&post_id=1OCKAx8ts3oJamdb1ei5"
+                                    alt="Hits"
+                                    width={200}
                                     height={20}
+                                    unoptimized
                                 />
                             </a>
                         </span>
