@@ -11,7 +11,6 @@ export function Mdx({markdown}: MarkdownRendererProps) {
     return (
         <>
             <ReactMarkdown
-                // children={markdown}
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
             >{markdown}</ReactMarkdown>
