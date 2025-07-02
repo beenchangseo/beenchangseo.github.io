@@ -1,14 +1,14 @@
-import {GetAllPostResponse} from '../app/api/posts/route';
 import BlogPost from './BlogPost';
+import {GetAllBlogPostResponseDto} from '../app/lib/api';
 
 type PostListProps = {
-    posts: GetAllPostResponse[];
+    posts: GetAllBlogPostResponseDto[];
 }
 
 export default function PostList({posts}: PostListProps) {
     return (
         <div className="flex flex-col">
-            {posts.map((post: GetAllPostResponse) => (
+            {posts.map((post: GetAllBlogPostResponseDto) => (
                 <BlogPost
                     date={post.update_time}
                     title={post.title}

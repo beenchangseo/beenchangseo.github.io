@@ -3,11 +3,11 @@
 import {ThemeProvider as Provider} from 'next-themes';
 import {ReactNode} from 'react';
 
-type ThemaProviderProps = {
+type ThemeProviderProps = {
     children: ReactNode;
 };
 
-export default function ThemeProvider({children}: ThemaProviderProps) {
+export default function ThemeProvider({children}: ThemeProviderProps) {
     return (
         <Provider enableSystem={true} attribute="class">
             {children}

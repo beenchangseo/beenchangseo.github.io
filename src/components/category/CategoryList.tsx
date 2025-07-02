@@ -1,30 +1,39 @@
-import {GetAllCategoryResponse} from '../../app/api/category/route';
+'use client';
+
 import {Dispatch, SetStateAction} from 'react';
+import {GetCategoryResponseDto} from '../../app/lib/api';
 
 interface CategoryListProps {
-    setSellect: Dispatch<SetStateAction<string>>;
-    sellect: string;
-    categories: GetAllCategoryResponse[];
+    setSelect: Dispatch<SetStateAction<string>>;
+    select: string;
+    categories: GetCategoryResponseDto[];
 }
 
-const sellectedStyle =
+const selectedStyle =
     'px-3 py-1 bg-green-100 dark:bg-green-900 border-2 border-gray-700 dark:border-gray-300 rounded-2xl sm:text-lg';
 const defaultStyle =
     'px-3 py-1 sm:text-lg border-0.5 border-gray-700 dark:border-gray-300 rounded-2xl transition-transform duration-300 hover:scale-110';
 
-export default function CategoryList({setSellect, sellect, categories}: CategoryListProps) {
+export default function CategoryList({setSelect, select, categories}: CategoryListProps) {
     return (
         <div className="flex flex-wrap gap-4">
+            <button
+                type="button"
+                onClick={() => setSelect('')}
+                className={select === '' ? selectedStyle : defaultStyle}
+            >
+                All
+            </button>
             {categories.map((category) => {
-                if (sellect === category.keyword)
+                if (select === category.keyword)
                     return (
                         <button
                             type="button"
                             onClick={() =>
-                                setSellect(category.keyword === 'All' ? '' : category.keyword)
+                                setSelect(category.keyword === 'All' ? '' : category.keyword)
                             }
                             key={category.keyword}
-                            className={sellectedStyle}
+                            className={selectedStyle}
                         >
                             {category.title}
                         </button>
@@ -33,7 +42,7 @@ export default function CategoryList({setSellect, sellect, categories}: Category
                     <button
                         type="button"
                         onClick={() =>
-                            setSellect(category.keyword === 'All' ? '' : category.keyword)
+                            setSelect(category.keyword === 'All' ? '' : category.keyword)
                         }
                         key={category.keyword}
                         className={defaultStyle}

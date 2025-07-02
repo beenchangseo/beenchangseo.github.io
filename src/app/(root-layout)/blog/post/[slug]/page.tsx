@@ -1,19 +1,16 @@
-'use client';
-
+import {Mdx} from '../../../../../components/Mdx';
+import {fetchPost, fetchAllPosts, fetchCategories} from '../../../../lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
-import {Mdx} from '../../../../../components/Mdx';
-import {useFetchPost} from '../../../../../hooks/useFetchPost';
-import {useRecoilValue} from 'recoil';
-import {categoryState} from '../../../../../state/categoryState';
 
-export default function PostPage({params}: {params: {slug: string}}) {
-    const {post, loading, error} = useFetchPost(params.slug);
-    const categories = useRecoilValue(categoryState);
+export async function generateStaticParams() {
+    const posts = await fetchAllPosts();
+    return posts.data.map((post: any) => ({ slug: post.id }));
+}
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
-    if (!post) return <p>Post not found.</p>;
+export default async function PostPage({params}: {params: {slug: string}}) {
+    const post = (await fetchPost(params.slug)).data;
+    const categories = (await fetchCategories()).data;
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('ko-KR', {
@@ -32,9 +29,9 @@ export default function PostPage({params}: {params: {slug: string}}) {
                 <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
                     <h1 className="mb-8 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>
                     <div className="flex-auto mb-4">
-                        {post.categories.map((item, index) => {
+                        {post.categories.map((item: string, index: number) => {
                             const category = categories.find(
-                                (category) => category.keyword === item,
+                                (category: any) => category.keyword === item,
                             );
                             return (
                                 <button className={categoryButtonStyle} key={index}>
