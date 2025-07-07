@@ -2,10 +2,32 @@ import {Mdx} from '../../../../../components/Mdx';
 import {fetchPost, fetchAllPosts, fetchCategories} from '../../../../lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
 
 export async function generateStaticParams() {
     const posts = await fetchAllPosts();
-    return posts.data.map((post: any) => ({ slug: post.id }));
+    return posts.data.map((post: any) => ({slug: post.id}));
+}
+
+export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata> {
+    const post = (await fetchPost(params.slug)).data;
+    return {
+        title: post.title,
+        description: post.description,
+        openGraph: {
+            title: post.title,
+            description: post.description,
+            url: `https://beenchangseo.github.io/blog/post/${params.slug}`,
+            type: 'article',
+            // images: [post.ogImage || '/default-og.png'],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.description,
+            // images: [post.ogImage || '/default-og.png'],
+        },
+    };
 }
 
 export default async function PostPage({params}: {params: {slug: string}}) {
