@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 
 export async function generateStaticParams() {
     const posts = await fetchAllPosts();
-    return posts.data.map((post: any) => ({slug: post.id}));
+    return posts.data.map((post) => ({slug: post.slug}));
 }
 
 export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata> {
