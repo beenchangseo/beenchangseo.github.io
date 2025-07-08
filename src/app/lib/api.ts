@@ -4,6 +4,7 @@ type GenericResponse<T> = {
 
 export type GetAllBlogPostResponseDto = {
     id: string;
+    slug: string;
     title: string;
     description: string;
     categories: string[];
@@ -12,6 +13,7 @@ export type GetAllBlogPostResponseDto = {
 
 export type GetBlogPostResponseDto = {
     user_id: string;
+    slug: string;
     title: string;
     description: string;
     tags: string[];
@@ -27,7 +29,7 @@ export type GetCategoryResponseDto = {
 };
 
 export async function fetchPost(slug: string): Promise<GenericResponse<GetBlogPostResponseDto>> {
-    const res = await fetch(`${process.env.BACKEND_API_SERVER}/blog/post?id=${slug}`);
+    const res = await fetch(`${process.env.BACKEND_API_SERVER}/blog/post?slug=${slug}`);
     if (!res.ok) throw new Error('Failed to fetch post');
 
     return res.json();

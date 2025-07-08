@@ -13,7 +13,7 @@ export default function PostList({posts}: PostListProps) {
                     date={post.update_time}
                     title={post.title}
                     des={post.description}
-                    slug={post.id}
+                    slug={post.slug}
                     key={post.title}
                 />
             ))}

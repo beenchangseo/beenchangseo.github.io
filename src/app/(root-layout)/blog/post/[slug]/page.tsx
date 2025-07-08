@@ -14,10 +14,11 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
     return {
         title: post.title,
         description: post.description,
+        keywords: post.tags,
         openGraph: {
             title: post.title,
             description: post.description,
-            url: `https://beenchangseo.github.io/blog/post/${params.slug}`,
+            url: `https://blog.beenslab.com/blog/post/${params.slug}`,
             type: 'article',
             // images: [post.ogImage || '/default-og.png'],
         },

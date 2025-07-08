@@ -1,12 +1,13 @@
-"use client";
-import {useState, ChangeEvent} from "react";
-import PostList from "./PostList";
+'use client';
+import {useState, ChangeEvent} from 'react';
+import PostList from './PostList';
+import {GetAllBlogPostResponseDto} from '../app/lib/api';
 
 // 검색 컴포넌트(클라이언트)
-export default function BlogSearch({posts}: {posts: any[]}) {
-    'use client';
+export default function BlogSearch({posts}: {posts: GetAllBlogPostResponseDto[]}) {
     const [search, setSearch] = useState('');
-    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value.toLowerCase());
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>
+        setSearch(e.target.value.toLowerCase());
     const filteredPosts = posts.filter((post) => post.title.toLowerCase().includes(search));
     return (
         <>
