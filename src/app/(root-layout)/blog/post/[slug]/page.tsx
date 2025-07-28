@@ -2,7 +2,7 @@ import {Mdx} from '../../../../../components/Mdx';
 import {fetchPost, fetchAllPosts, fetchCategories} from '../../../../lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Metadata } from 'next';
+import {Metadata} from 'next';
 
 export async function generateStaticParams() {
     const posts = await fetchAllPosts();
@@ -75,13 +75,14 @@ export default async function PostPage({params}: {params: {slug: string}}) {
                         </span>
                         <span className="flex items-center ml-auto">
                             <a href="#">
-                                <Image
+                                {/* 동적 라우트에서 Next.js의 <Image>, <Link>가 SSR 중에 오류 발생. 특히 Vercel의 이미지 최적화나 프리페칭 로직이 Googlebot과 충돌하는 현상 테스트 */}
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
                                     className="mb-0 mt-0"
                                     src="https://hits.beenslab.com/?domain=beenslab&post_id=1OCKAx8ts3oJamdb1ei5"
                                     alt="Hits"
-                                    width={200}
-                                    height={20}
-                                    unoptimized
+                                    width="200"
+                                    height="20"
                                 />
                             </a>
                         </span>

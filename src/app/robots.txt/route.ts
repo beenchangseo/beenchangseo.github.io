@@ -4,10 +4,12 @@ import {NextResponse} from 'next/server';
 
 export function GET() {
     return new NextResponse(
-        `User-agent: *
-Allow: /
-Sitemap: ${BASE_URL}sitemap.xml
-`,
+        `
+        User-agent: *
+        Allow: /
+        Disallow: /_next/static/chunks/app/
+        Sitemap: ${BASE_URL}sitemap.xml
+        `,
         {
             headers: {
                 'Content-Type': 'text/plain',
