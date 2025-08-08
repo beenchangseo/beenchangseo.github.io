@@ -28,6 +28,10 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
             description: post.description,
             // images: [post.ogImage || '/default-og.png'],
         },
+        alternates: {
+            canonical: `https://blog.beenslab.com/blog/post/${params.slug}`,
+        },
+        robots: {index: true, follow: true},
     };
 }
 

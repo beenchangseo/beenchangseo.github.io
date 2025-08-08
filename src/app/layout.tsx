@@ -26,7 +26,7 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={inter.className} suppressHydrationWarning={true}>
+        <html lang="ko" className={inter.className} suppressHydrationWarning={true}>
             <body>
                 {/* Auth.js */}
                 <AuthProvider>
