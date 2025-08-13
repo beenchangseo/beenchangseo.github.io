@@ -7,7 +7,6 @@ export function GET() {
         `
         User-agent: *
         Allow: /
-        Disallow: /_next/static/chunks/app/
         Sitemap: ${BASE_URL}sitemap.xml
         `,
         {
