@@ -3,6 +3,7 @@ import {fetchPost, fetchAllPosts, fetchCategories} from '../../../../lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
 import {Metadata} from 'next';
+import Script from 'next/script';
 
 export async function generateStaticParams() {
     const posts = await fetchAllPosts();
@@ -11,25 +12,27 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata> {
     const post = (await fetchPost(params.slug)).data;
+    const url = `https://blog.beenslab.com/blog/post/${params.slug}`;
     return {
         title: post.title,
         description: post.description,
         keywords: post.tags,
         openGraph: {
             title: post.title,
+            siteName: 'beenslab',
             description: post.description,
-            url: `https://blog.beenslab.com/blog/post/${params.slug}`,
+            url,
             type: 'article',
-            // images: [post.ogImage || '/default-og.png'],
+            images: ['/images/default-og.png'],
         },
         twitter: {
             card: 'summary_large_image',
             title: post.title,
             description: post.description,
-            // images: [post.ogImage || '/default-og.png'],
+            images: ['/images/default-og.png'],
         },
         alternates: {
-            canonical: `https://blog.beenslab.com/blog/post/${params.slug}`,
+            canonical: url,
         },
         robots: {index: true, follow: true},
     };
@@ -38,6 +41,23 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
 export default async function PostPage({params}: {params: {slug: string}}) {
     const post = (await fetchPost(params.slug)).data;
     const categories = (await fetchCategories()).data;
+
+    // JSON-LD(TechArticle)
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://blog.beenslab.com/blog/post/${params.slug}`,
+        },
+        headline: post.title,
+        description: post.description,
+        author: {'@type': 'Person', name: 'beenchangseo'},
+        publisher: {'@type': 'Organization', name: 'beenslab'},
+        datePublished: post.create_time,
+        dateModified: post.update_time,
+        image:'/images/default-og.png',
+    };
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('ko-KR', {
@@ -52,6 +72,12 @@ export default async function PostPage({params}: {params: {slug: string}}) {
 
     return (
         <>
+            {/* JSON-LD 주입 */}
+            <Script
+                id="post-jsonld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
+            />
             <section>
                 <div className="mt-10 pb-10 border-b-2 mb-10 prose dark:prose-invert">
                     <h1 className="mb-8 font-bold text-2xl sm:text-4xl font-mono">{post.title}</h1>

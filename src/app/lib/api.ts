@@ -9,6 +9,7 @@ export type GetAllBlogPostResponseDto = {
     description: string;
     categories: string[];
     update_time: string;
+    create_time: string;
 };
 
 export type GetBlogPostResponseDto = {
@@ -20,6 +21,7 @@ export type GetBlogPostResponseDto = {
     categories: string[];
     contents: string;
     update_time: string;
+    create_time: string;
 };
 
 export type GetCategoryResponseDto = {

@@ -14,6 +14,7 @@ export default function PostList({posts}: PostListProps) {
                     title={post.title}
                     des={post.description}
                     slug={post.slug}
+                    categories={post.categories}
                     key={post.title}
                 />
             ))}
