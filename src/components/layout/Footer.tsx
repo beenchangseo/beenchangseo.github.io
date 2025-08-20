@@ -3,7 +3,7 @@ export default function Footer() {
         <footer className="w-full font-mono flex flex-col justify-center items-center pt-10 pb-6 transition duration-500 bg-white dark:bg-[#111111] dark:text-white text-black">
             <div className="flex justify-center gap-4 items-center pt-4 border-t-2 w-36">
                 <a
-                    href="beenchangseo@gmail.com"
+                    href="mailto:beenchangseo@gmail.com"
                     className="hover:scale-110 transition-transform duration-500 hover:text-green-500 hover:fill-green-500 dark:fill-white dark:hover:fill-green-500"
                 >
                     <svg
