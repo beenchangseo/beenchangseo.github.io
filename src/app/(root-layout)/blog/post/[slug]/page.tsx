@@ -88,7 +88,7 @@ export default async function PostPage({params}: {params: {slug: string}}) {
                             );
                             return (
                                 <button className={categoryButtonStyle} key={index}>
-                                    <Link href={{pathname: '/category', query: {category: item}}}>
+                                    <Link href={{pathname: '/category', query: {filter: item}}}>
                                         {category ? category.title : item}
                                     </Link>
                                 </button>
@@ -105,14 +105,13 @@ export default async function PostPage({params}: {params: {slug: string}}) {
                         </span>
                         <span className="flex items-center ml-auto">
                             <a href="#">
-                                {/* 동적 라우트에서 Next.js의 <Image>, <Link>가 SSR 중에 오류 발생. 특히 Vercel의 이미지 최적화나 프리페칭 로직이 Googlebot과 충돌하는 현상 테스트 */}
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                                <Image
                                     className="mb-0 mt-0"
-                                    src="https://hits.beenslab.com/?domain=beenslab&post_id=1OCKAx8ts3oJamdb1ei5"
+                                    src={`https://hits.beenslab.com/?domain=beenslab&post_id=1OCKAx8ts3oJamdb1ei5`}
                                     alt="Hits"
-                                    width="200"
-                                    height="20"
+                                    width={200}
+                                    height={20}
+                                    unoptimized
                                 />
                             </a>
                         </span>
