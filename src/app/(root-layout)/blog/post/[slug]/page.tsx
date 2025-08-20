@@ -97,7 +97,7 @@ export default async function PostPage({params}: {params: {slug: string}}) {
                     </div>
                     <div className="flex items-center justify-between mb-16">
                         <span className="text-sm">
-                            <a href="https://beenchangseo.github.io/">beenchangseo</a>
+                            <a href="https://blog.beenslab.com/">beenchangseo</a>
                         </span>
                         <span className="ml-1 mr-1">·</span>
                         <span className="text-sm font-medium text-gray-500">
