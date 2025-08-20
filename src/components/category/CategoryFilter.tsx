@@ -3,9 +3,12 @@
 import {useState} from 'react';
 import CategoryList from './CategoryList';
 import PostList from '../PostList';
+import {useSearchParams} from 'next/navigation';
 
 export default function CategoryFilter({posts, categories}: {posts: any[]; categories: any[]}) {
-    const [select, setSelect] = useState('');
+    const searchParams = useSearchParams();
+    const [select, setSelect] = useState(searchParams.get('filter') || '');
+
     const filteredPosts =
         select === '' ? posts : posts.filter((post) => post.categories.includes(select));
     return (
