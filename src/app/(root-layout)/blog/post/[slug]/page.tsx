@@ -16,7 +16,7 @@ export async function generateMetadata({params}: {params: {slug: string}}): Prom
     return {
         title: post.title,
         description: post.description,
-        keywords: post.tags,
+        // keywords: post.tags,
         openGraph: {
             title: post.title,
             siteName: 'beenslab',
@@ -57,6 +57,7 @@ export default async function PostPage({params}: {params: {slug: string}}) {
         datePublished: post.create_time,
         dateModified: post.update_time,
         image:'/images/default-og.png',
+        inLanguage: 'ko',
     };
 
     const formatDate = (dateString: string) => {
@@ -101,7 +102,7 @@ export default async function PostPage({params}: {params: {slug: string}}) {
                         </span>
                         <span className="ml-1 mr-1">·</span>
                         <span className="text-sm font-medium text-gray-500">
-                            {formatDate(post.update_time.toString())}
+                            {formatDate(post.create_time.toString())}
                         </span>
                         <span className="flex items-center ml-auto">
                             <a href="#">

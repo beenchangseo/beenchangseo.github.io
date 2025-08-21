@@ -10,7 +10,7 @@ export default function PostList({posts}: PostListProps) {
         <div className="flex flex-col">
             {posts.map((post: GetAllBlogPostResponseDto) => (
                 <BlogPost
-                    date={post.update_time}
+                    date={post.create_time}
                     title={post.title}
                     des={post.description}
                     slug={post.slug}
