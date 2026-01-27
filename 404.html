@@ -2,12 +2,21 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=https://blog.beenslab.com/">
-    <link rel="canonical" href="https://blog.beenslab.com/">
     <title>Redirecting to blog.beenslab.com</title>
     <script>
         const path = window.location.pathname;
-        window.location.href = "https://blog.beenslab.com" + path;
+        
+        // Google Search Console 확인 파일은 리다이렉트하지 않음
+        if (path.startsWith('/google') && path.endsWith('.html')) {
+            // 404 그대로 반환 (GSC 파일은 별도로 추가해야 함)
+            document.write('<h1>404 - File not found</h1>');
+            document.write('<p>If you are looking for blog content, please visit <a href="https://blog.beenslab.com">blog.beenslab.com</a></p>');
+        } else {
+            // 일반 페이지는 리다이렉트
+            document.write('<meta http-equiv="refresh" content="0;url=https://blog.beenslab.com' + path + '">');
+            document.write('<link rel="canonical" href="https://blog.beenslab.com' + path + '">');
+            window.location.href = "https://blog.beenslab.com" + path;
+        }
     </script>
 </head>
 <body>
